@@ -35,7 +35,10 @@ public interface BookAccess {
 	public void returnBook(String isbn);
 	
 	//대출가능여부확인
-	public void checkRental(String isbn);
+	public int checkRental(String isbn);
+	
+	//대출가능한책 목록
+	public ArrayList<Book> ableRental();
 	
 	
 	//회원가입

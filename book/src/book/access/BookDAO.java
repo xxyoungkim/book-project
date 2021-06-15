@@ -236,21 +236,55 @@ public class BookDAO implements BookAccess {
 
 	//대출가능여부확인 -> count를 조회해서 count가 1이면 대여가능, 0이면 대여불가능
 	@Override
-	public void checkRental(String isbn) {
+	public int checkRental(String isbn) {
 		connect();
+		int count = 2;
 		try {
 			psmt = conn.prepareStatement("select count from book where isbn=?");
 			psmt.setString(1, isbn);
 			rs = psmt.executeQuery();
 			if(rs.next()) {
-				System.out.println(rs.getInt("count"));
+//				book.setCount(rs.getInt("count"));
+				count = rs.getInt("count");
+//				System.out.println(count);
+//				return count;
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {close();}
+		return count;
 	}
 
+	
+	
+	//대출 가능한 책 목록
+	@Override
+	public ArrayList<Book> ableRental() {
+		connect();
+		try {
+			psmt = conn.prepareStatement("select * from book where count=1");
+			rs = psmt.executeQuery();
+			bookList = new ArrayList<Book>();
+			
+			while(rs.next()) {
+				book = new Book();
+				book.setIsbn(rs.getString("isbn"));
+				book.setTitle(rs.getString("title"));
+				book.setAuthor(rs.getString("author"));
+				book.setPublisher(rs.getString("publisher"));
+				book.setSubject(rs.getString("subject"));
+				book.setTranslator(rs.getString("translator"));
+				
+				bookList.add(book);
+			}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {close();}
+		return bookList;
+	}
+	
 	
 	
 	//회원가입
@@ -542,5 +576,7 @@ public class BookDAO implements BookAccess {
 			}
 		}// end of if
 	} //end of close
+
+
 
 }

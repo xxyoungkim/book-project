@@ -1,12 +1,11 @@
 package book.view;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import book.access.BookAccess;
 import book.access.BookDAO;
-import book.access.MemberAccess;
-import book.access.UserDAO;
 import book.model.Book;
 import book.model.User;
 import book.util.ScannerUtil;
@@ -14,11 +13,11 @@ import book.util.ScannerUtil;
 public class BookApp {
 	
 	BookAccess bookList = new BookDAO();
-	MemberAccess userList = new UserDAO();
 	Scanner scanner = new Scanner(System.in);
 	Book book;
 	User user;
 	String connectingID;
+	ArrayList<String> rentalingBook;
 
 	
 	//사용자
@@ -37,7 +36,7 @@ public class BookApp {
 			case 4: searchAuthor(); break;
 			case 5: searchPublisher(); break;
 			case 6: searchSubject(); break;
-			case 7: 
+			case 7: rentalBook(); break;
 			}
 			
 		} while(usernum != 0);
@@ -73,7 +72,7 @@ public class BookApp {
 		System.out.println("=========================================");
 		System.out.println("1.전체조회 | 2.isbn조회 | 3.제목조회 | 4.작가조회");
 		System.out.println("-----------------------------------------");
-		System.out.println("5.출판사조회 | 6.분류조회 | 7.대출확인 |  0.종료");
+		System.out.println("5.출판사조회 | 6.분류조회 | 7.책대여 |  0.종료");
 		System.out.println("=========================================");
 		
 	}
@@ -141,65 +140,89 @@ public class BookApp {
 	
 	//대여
 	public void rentalBook() {
-		searchTitle();
+		int count = 0;
+		rentalingBook = new ArrayList<String>();
+		while(count < 3) {			
+			searchTitle();
+			System.out.print("대여할 책의 ISBN 입력> ");
+			String isbn = ScannerUtil.readStr();
+			bookList.rentalBook(isbn);
+			rentalingBook.add(isbn);
+			System.out.println("대여하였습니다.");
+			count++;
+			if(count < 3) {
+				System.out.print("추가로 대여하시겠습니까?(y/n) ");
+				String str = scanner.nextLine();
+				if(str.equals("y") || str.equals("Y")) {
+					continue;
+				}
+			}
+		}
+		System.out.println("최대 3권까지 대여 가능합니다.");
+		System.out.println("==대여하신 책의 ISBN 목록==");
+		for(String r_isbn : rentalingBook) {
+			System.out.println(r_isbn);
+		}	
 	}
+	
 	
 	//반납
 	public void returnBook() {
+		int count = 0;
+		System.out.println("==대여하신 책의 ISBN 목록==");
+		for(String r_isbn : rentalingBook) {
+			System.out.println(r_isbn);
+		}
+		
+		while(count < rentalingBook.size()) {			
+			searchTitle();
+			System.out.print("반납할 책의 ISBN 입력> ");
+			String isbn = ScannerUtil.readStr();
+			bookList.returnBook(isbn);
+			//여기까지 수정
+			Iterator it = rentalingBook.iterator();
+			while(it.hasNext()) {
+				String str2 = (String) it.next();
+				if(str2 == isbn) {
+					it.remove();
+				}
+			}
+			System.out.println("반납하였습니다.");
+			if(count < rentalingBook.size()) {
+				System.out.print("추가로 반납하시겠습니까?(y/n) ");
+				String str = scanner.nextLine();
+				if(str.equals("y") || str.equals("Y")) {
+					continue;
+				}
+			}
+		}
 		
 	}
 	
-	//대여가능여부확인 -> 대여/반납도 따로 만들어야 할 듯(update로 count 변경해서 셋팅) -> 최대 3권까지
+	//대여가능여부 확인 -> count가 0이면 불가능, 1이면 가능
 	public void checkRental() {
+		System.out.print("조회할 ISBN 입력> ");
+		String isbn = scanner.nextLine();
+		int count = bookList.checkRental(isbn);
+		
+		if(count == 0) {
+			System.out.println("현재 대여중인 책입니다.");
+		}
+		else if(count == 1) {
+			System.out.println("대여가 가능한 책입니다.");
+		}
+			
 		
 	}
-
-/*
-case 4:
-
-	System.out.println("대여할 책 아이디를 입력하세요");
-	int q = scan.nextInt();
-	scan.nextLine();
-	boolean isExist = false;
-
-	for (int i = 0; i < bookList.size(); i++) {
-		if (q == bookList.get(i).getId())
-			if (bookList.get(i).isRental()) {
-				System.out.println("이미 대여중입니다");
-			} else if ((!bookList.get(i).isRental())) {
-				System.out.println("정상적으로 대여 되었습니다");
-				bookList.get(i).setRental(true);
-			}
+	
+	//대여가능 책 조회(count = 1인 * select)
+	public void ableRental() {
+		ArrayList<Book> list = bookList.ableRental();
+		for(Book b : list) {
+			System.out.println(b);
+		}
 	}
-	// if (!isExist)
-	// System.out.println("해당 도서가 존재하지 않습니다");
-	break;
 
-case 5:
-
-	System.out.println("반납할 책 아이디를 입력하세요");
-	int w = scan.nextInt();
-	scan.nextLine();
-	boolean isExist2 = false;
-
-	for (int i = 0; i < bookList.size(); i++) {
-		if (w == bookList.get(i).getId())
-			if (!bookList.get(i).isRental()) {
-				System.out.println("대여중이 아닙니다");
-			} else if (bookList.get(i).isRental()) {
-				System.out.println("정상적으로 반납 되었습니다");
-				bookList.get(i).setRental(false);
-				System.out.println("연체료 :" + bookList.get(i).getLateFees(3));
-			}
-
-	}
-	// if (!isExist2)
-	// System.out.println("해당 도서가 존재하지 않습니다");
-	break;
-
-
-출처: https://sungwooki.tistory.com/entry/15일-차-도서-대여-프로그램 [박성우기의 프로그래밍 저장소]
-	*/
 	
 	
 	//회원가입
@@ -318,7 +341,7 @@ case 5:
 		
 		
 //		User user = new User(input[0], input[1], input[2], input[3], input[4]);
-		userList.signUp(input[0], input[1], input[2], input[3], input[4]);
+		bookList.signUp(input[0], input[1], input[2], input[3], input[4]);
 		
 		System.out.println("회원가입이 완료되었습니다.");
 
@@ -344,7 +367,7 @@ case 5:
 			user.setUser_phone(user_phone);
 		}
 		
-		userList.updateUser(user);
+		bookList.updateUser(user);
 		
 	}
 	
@@ -359,7 +382,7 @@ case 5:
 			System.out.print("정말로 탈퇴하시겠습니까?(y/n) ");
 			String str = scanner.nextLine();
 			if(str.equals("y") || str.equals("Y")) {
-				userList.deleteUser(user);
+				bookList.deleteUser(user);
 			}
 		}
 	}
@@ -371,7 +394,8 @@ case 5:
 		boolean result = false;
 		String user_id = ScannerUtil.readStr("아이디 입력");
 		String user_pass = ScannerUtil.readStr("비밀번호 입력");
-		boolean idPassCheck = userList.logIn(user_id, user_pass);
+		boolean idPassCheck = bookList.logIn(user_id, user_pass);
+		connectingID = user_id;
 		
 		if(idPassCheck == true) {
 			result = true;
@@ -484,7 +508,7 @@ case 5:
 	
 	//회원조회
 	public void searchAllUser() {
-		ArrayList<User> list = userList.searchAllUser();
+		ArrayList<User> list = bookList.searchAllUser();
 		for(User u : list) {
 			System.out.println(u);
 		}
@@ -493,7 +517,7 @@ case 5:
 	//회원 단건 조회
 	public void findOneUser() {
 		String user_id = ScannerUtil.readStr("id 입력");
-		User user = userList.findOneUser(user_id);
+		User user = bookList.findOneUser(user_id);
 		System.out.println(user);
 	}
 	
