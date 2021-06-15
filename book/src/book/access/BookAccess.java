@@ -29,13 +29,13 @@ public interface BookAccess {
 	
 	
 	//대출
-	public void rentalBook();
+	public void rentalBook(String isbn);
 	
 	//반납
-	public void returnBook();
+	public void returnBook(String isbn);
 	
 	//대출가능여부확인
-	public void checkRental();
+	public void checkRental(String isbn);
 	
 	
 	

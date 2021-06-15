@@ -137,9 +137,9 @@ public class BookApp {
 	}
 	
 	
-	//대출
+	//대여
 	public void rentalBook() {
-		
+		searchTitle();
 	}
 	
 	//반납
@@ -147,7 +147,7 @@ public class BookApp {
 		
 	}
 	
-	//대출가능여부확인 -> 대출/반납도 따로 만들어야 할 듯(update로 count 변경해서 셋팅) -> 최대 3권까지
+	//대여가능여부확인 -> 대여/반납도 따로 만들어야 할 듯(update로 count 변경해서 셋팅) -> 최대 3권까지
 	public void checkRental() {
 		
 	}

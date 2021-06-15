@@ -200,27 +200,53 @@ public class BookDAO implements BookAccess {
 	}
 
 	
-	//대출
+	//대여 -> 책을 대여해가면 count(책 권수)가 0으로 변경된다
 	@Override
-	public void rentalBook() {
+	public void rentalBook(String isbn) {
 		connect();
+		try {
+			psmt = conn.prepareStatement("update book set count=0 where isbn=?");
+			psmt.setString(1, isbn);
+			int r = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {close();}
 		
 	}
 
 
-	//반납
+	//반납 -> 책을 반납하면 count(책 권수)가 1으로 변경된다
 	@Override
-	public void returnBook() {
+	public void returnBook(String isbn) {
 		connect();
+		try {
+			psmt = conn.prepareStatement("update book set count=1 where isbn=?");
+			psmt.setString(1, isbn);
+			int r = psmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {close();}
 		
 	}
 
 
-	//대출가능여부확인
+	//대출가능여부확인 -> count를 조회해서 count가 1이면 대여가능, 0이면 대여불가능
 	@Override
-	public void checkRental() {
+	public void checkRental(String isbn) {
 		connect();
-		
+		try {
+			psmt = conn.prepareStatement("select count from book where isbn=?");
+			psmt.setString(1, isbn);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				System.out.println(rs.getInt("count"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {close();}
 	}
 
 	
