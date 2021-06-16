@@ -537,7 +537,7 @@ public class BookDAO implements BookAccess {
 		return user;
 	}
 	
-
+	//전체회원조회
 	@Override
 	public ArrayList<User> searchAllUser() {
 		connect();
@@ -629,6 +629,55 @@ public class BookDAO implements BookAccess {
 	}
 
 	
+
+	//전체 ISBN만 조회
+	@Override
+	public ArrayList<Book> checkISBN() {
+		connect();
+		try {
+			psmt = conn.prepareStatement("select isbn from book");
+			rs = psmt.executeQuery();
+			bookList = new ArrayList<Book>();
+			
+			while(rs.next()) {
+				Book book = new Book();
+				book.setIsbn(rs.getString("isbn"));
+				
+				bookList.add(book);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {close();}
+		
+		return bookList;
+	}
+
+	//user의 아이디만 조회
+	@Override
+	public ArrayList<User> checkUserId() {
+		connect();
+		userList = new ArrayList<User>();
+		try {
+			psmt = conn.prepareStatement("select user_id from user");
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				User user = new User();
+				user.setUserId(rs.getString("user_id"));
+			
+				userList.add(user);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {close();}
+		
+		return userList;
+	}
+
+	
 	
 	
 	//연결
@@ -668,9 +717,6 @@ public class BookDAO implements BookAccess {
 			}
 		}// end of if
 	} //end of close
-
-
-
 
 
 }

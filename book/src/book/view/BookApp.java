@@ -17,8 +17,8 @@ public class BookApp {
 	Scanner scanner = new Scanner(System.in);
 	Book book;
 //	User user;
-	static String connectingID;
-	static String connectingPass;
+	static String connectingID = null;
+	static String connectingPass = null;
 	static ArrayList<String> rentalingBook;
 
 	
@@ -54,8 +54,8 @@ public class BookApp {
 
 	public void execute1Title() {
 		System.out.println("┏━━━━━━━━━━━━━━━━┓");
-		System.out.println("     1.회원가입    ");
-		System.out.println("     2.로그인     ");
+		System.out.println("     1.회원가입     ");
+		System.out.println("     2.로그인       ");
 		System.out.println("┗━━━━━━━━━━━━━━━━┛");
 	}
 	
@@ -95,11 +95,11 @@ public class BookApp {
 	public void userTitle() {
 		System.out.println("┏━━━━━━━━━━━━━━━━┓");
 		System.out.println("┃                ┃");
-		System.out.println("┃   1.도서 조회    ┃");
-		System.out.println("┃   2.도서 대여    ┃");
-		System.out.println("┃   3.도서 반납    ┃");
-		System.out.println("┃   4.나의 계정    ┃");
-		System.out.println("┃   0.종료        ┃");
+		System.out.println("    1.도서 조회     ");
+		System.out.println("    2.도서 대여     ");
+		System.out.println("    3.도서 반납     ");
+		System.out.println("    4.나의 계정     ");
+		System.out.println("    0.종료         ");
 		System.out.println("┃                ┃");
 		System.out.println("┗━━━━━━━━━━━━━━━━┛");
 
@@ -127,10 +127,10 @@ public class BookApp {
 	public void userInfoTitle() {
 		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━┓");
 		System.out.println("┃                     ┃");
-		System.out.println("┃   1.나의 정보 조회     ┃");
-		System.out.println("┃   2.나의 정보 수정     ┃");
-		System.out.println("┃   3.회원 탈퇴         ┃");
-		System.out.println("┃   0.목록으로 돌아가기   ┃");
+		System.out.println("    1.나의 정보 조회      ");
+		System.out.println("    2.나의 정보 수정      ");
+		System.out.println("    3.회원 탈퇴          ");
+		System.out.println("    0.목록으로 돌아가기    ");
 		System.out.println("┃                     ┃");
 		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━┛");
 
@@ -163,12 +163,12 @@ public class BookApp {
 	public void managerTitle() {
 		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━┓");
 		System.out.println("┃                     ┃");
-		System.out.println("┃    1.전체 도서 조회    ┃");
-		System.out.println("┃    2.도서 등록        ┃");
-		System.out.println("┃    3.도서 수정        ┃");
-		System.out.println("┃    4.도서 삭제        ┃");
-		System.out.println("┃    5.전체 회원 조회    ┃");
-		System.out.println("┃    0.종료            ┃");
+		System.out.println("     1.전체 도서 조회     ");
+		System.out.println("     2.도서 등록         ");
+		System.out.println("     3.도서 수정         ");
+		System.out.println("     4.도서 삭제         ");
+		System.out.println("     5.전체 회원 조회     ");
+		System.out.println("     0.종료             ");
 		System.out.println("┃                     ┃");
 		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━┛");
 	}
@@ -199,13 +199,13 @@ public class BookApp {
 	public void searchApp() {
 		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━┓");
 		System.out.println("┃                     ┃");
-		System.out.println("┃   1.전체 도서 조회     ┃");
-		System.out.println("┃   2.대여가능도서 조회   ┃");
-		System.out.println("┃   3.ISBN 조회        ┃");
-		System.out.println("┃   4.제목으로 조회      ┃");
-		System.out.println("┃   5.작가이름으로 조회   ┃");
-		System.out.println("┃   6.출판사로 조회      ┃");
-		System.out.println("┃   0.목록으로 돌아가기   ┃");
+		System.out.println("    1.전체 도서 조회      ");
+		System.out.println("    2.대여가능도서 조회    ");
+		System.out.println("    3.ISBN 조회         ");
+		System.out.println("    4.제목으로 조회       ");
+		System.out.println("    5.작가이름으로 조회    ");
+		System.out.println("    6.출판사로 조회       ");
+		System.out.println("    0.목록으로 돌아가기    ");
 		System.out.println("┃                     ┃");
 		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━┛");
 	}
@@ -402,25 +402,37 @@ public class BookApp {
 		String[] input = new String[5];
 
 		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-		System.out.println("┃           회원가입           ┃");
+		System.out.println("            회원가입            ");
 		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 
 		while (true) {
 			result = new boolean[] { false, false, false, false, false };
+			ArrayList<User> list = bookList.checkUserId();
 
 			//id 입력
 			System.out.print(uList[0]);
 			input[0] = scanner.nextLine();
-			char[] userId = input[0].toCharArray();
-			for (int i = 0; i < userId.length; i++) {
-				char tempId = userId[i];
-				if (Character.isLetter(tempId) || Character.isDigit(tempId)) {
-					result[0] = true;
-				} else {
-					result[0] = false;
-					break;
+			
+			if (input[0].length() > 5) {
+				char[] userId = input[0].toCharArray();
+				for(User u : list) {
+					if(u.getUserId().equals(input[0])) {
+						System.out.println("중복된 아이디 입니다.");
+						signUp();
+					}
+				}
+					
+				for (int i = 0; i < userId.length; i++) {
+					char tempId = userId[i];
+					if (Character.isLetter(tempId) || Character.isDigit(tempId)) {
+						result[0] = true;
+					} else {
+						result[0] = false;
+						break;
+					}
 				}
 			}
+	
 
 			//password 입력
 			System.out.print(uList[1]);
@@ -515,15 +527,14 @@ public class BookApp {
 	public void updateUser() {
 		String userPass1 = ScannerUtil.readStr("비밀번호 입력");
 		User user = bookList.findOneUser(userPass1);
+		//현재 로그인 중인 비밀번호와 회원정보수정시 입력한 비밀번호가 다르면 정보를 수정할 수 없다.
 		if(! userPass1.equals(connectingPass)) {	
-			System.out.println("본인의 정보만 수정할 수 있습니다.");
+			System.out.println("비밀번호 확인이 실패하였습니다.");
 			user();
 		}
-
 		
-		//이 부분 잘 돌아가는지 확인 필요@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 		User user2 = bookList.findOneUser(connectingID);
-		System.out.println(user2);
+		System.out.println(user2); //로그인한 회원의 정보 보여주는 항목
 		
 		//비밀번호, 휴대전화번호 수정 가능
 		System.out.print("수정할 비밀번호 입력> ");
@@ -547,7 +558,7 @@ public class BookApp {
 		String userPass = ScannerUtil.readStr("비밀번호 입력");
 		User user = bookList.findOneUser(userPass);
 		if(! userPass.equals(connectingPass)) {	
-			System.out.println("본인의 계정만 탈퇴할 수 있습니다.");
+			System.out.println("비밀번호 확인이 실패하였습니다.");
 			user();
 		}
 //		System.out.print("비밀번호를 입력하세요> ");
@@ -633,17 +644,31 @@ public class BookApp {
 		new AppMain().main(null);
 	}
 
-	
-	
-	
-	
-	
-	
-	// 관리자
-	// 책 등록////////////////////////////////등록할 때 이미 있는 isbn이면 "이미 있는 isbn" 출력
+
+	//관리자
+	//도서 등록
 	public void insertBook() {
 		Book book = new Book();
-		book.setIsbn(ScannerUtil.readStr("ISBN 입력"));
+		System.out.print("ISBN 입력(13자리)> ");
+		String isbn = scanner.nextLine();
+		
+		//isbn이 요소로 들어있는 배열의 요소와 입력해준 isbn을 비교해서 같으면 중복
+		ArrayList<Book> list = bookList.checkISBN();
+		for(Book b : list) {
+			if(b.getIsbn().equals(isbn)) {
+				System.out.println("중복된 ISBN 입니다.");
+				manager();
+			}
+		}
+			if (isbn.length() == 13) {
+				book.setIsbn(isbn);
+			}
+			else if (isbn.length() != 13) {
+				System.out.println("ISBN 13자리를 입력해주세요.");
+				manager();
+			}
+		
+//		book.setIsbn(ScannerUtil.readStr("ISBN 입력"));
 		book.setTitle(ScannerUtil.readStr("제목 입력"));
 		book.setAuthor(ScannerUtil.readStr("작가이름 입력"));
 		book.setPublisher(ScannerUtil.readStr("출판사 입력"));
@@ -653,11 +678,20 @@ public class BookApp {
 		bookList.insertBook(book);
 	}
 
-	// 책 수정 -> isbn으로 검색해서 내용 수정
+	//도서 수정 -> isbn으로 검색해서 내용 수정
 	public void updateBook() {
-		searchISBN();
-//		System.out.print("조회할 isbn> ");
-//		String isbn = scanner.nextLine();
+		System.out.print("조회할 ISBN 입력> ");
+		String isbn = scanner.nextLine();
+		Book book = bookList.searchISBN(isbn);
+		if (isbn.length() == 13) {
+//			Book book = bookList.searchISBN(isbn);
+			System.out.println(book);
+		}
+		else {
+			System.out.println("다시 입력해주세요.");
+			manager();
+		}
+
 
 		System.out.print("수정할 제목 입력> ");
 		String title = scanner.nextLine();
@@ -689,24 +723,32 @@ public class BookApp {
 			book.setTranslator(translator);
 		}
 
+//		book = new Book(title, author, publisher, subject, translator);
 		bookList.updateBook(book);
 	}
 
-	// 책 삭제 -> 책제목 조회 ->하나를 선택해서 삭제
+	//도서 삭제 -> 책제목 조회 ->하나를 선택해서 삭제
 	public void deleteBook() {
 		searchTitle();
 		System.out.print("삭제할 도서의 ISBN 입력> ");
 		String isbn = scanner.nextLine();
+		if (isbn.length() != 13) {
+			System.out.println("다시 입력해주세요.");
+			manager();
+		}
 		if (isbn != null) {
 			System.out.print("정말로 삭제하시겠습니까?(y/n) ");
 			String str = scanner.nextLine();
 			if (str.equals("y") || str.equals("Y")) {
 				bookList.deleteBook(isbn);
 			}
+			else if (str.equals("n") || str.equals("N")) {
+				manager();
+			}
 		}
 	}
 
-	// 회원조회
+	//회원조회
 	public void searchAllUser() {
 		ArrayList<User> list = bookList.searchAllUser();
 		for (User u : list) {
@@ -714,7 +756,7 @@ public class BookApp {
 		}
 	}
 
-	// 회원 단건 조회
+	//회원 단건 조회
 	public void findOneUser() {
 		String userId = ScannerUtil.readStr("아이디 입력");
 		User user = bookList.findOneUser(userId);

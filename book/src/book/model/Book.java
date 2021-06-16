@@ -32,6 +32,16 @@ public class Book {
 		this.subject = subject;
 		this.translator = translator;
 	}
+	
+	public Book(String title, String author, String publisher, String subject, String translator) {
+		super();
+		this.title = title;
+		this.author = author;
+		this.publisher = publisher;
+		this.subject = subject;
+		this.translator = translator;
+	}
+
 
 
 

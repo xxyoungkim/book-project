@@ -82,4 +82,9 @@ public interface BookAccess {
 	//삭제 -> isbn으로 검색해서 삭제
 	public void deleteBook(String isbn);
 	
+	//전체 isbn만 조회
+	public ArrayList<Book> checkISBN();
+	
+	//user의 아이디만 조회
+	public ArrayList<User> checkUserId();
 }
