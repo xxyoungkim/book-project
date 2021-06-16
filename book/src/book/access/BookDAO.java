@@ -341,7 +341,7 @@ public class BookDAO implements BookAccess {
 		
 		if(idEqual(userId)) {
 			if(passEqual(userPass)) {
-				System.out.println("로그인 성공!");
+//				System.out.println("로그인 성공!");
 				result = true;
 			}
 			else {
@@ -409,7 +409,7 @@ public class BookDAO implements BookAccess {
 		
 		if(managerIdEqual(managerId)) {
 			if(managerPassEqual(managerPass)) {
-				System.out.println("로그인 성공!");
+//				System.out.println("로그인 성공!");
 				result = true;
 			}
 			else {
@@ -636,7 +636,7 @@ public class BookDAO implements BookAccess {
 		String url = "jdbc:sqlite:C:/sqlite/db/book.db";
 		try {
 			conn = DriverManager.getConnection(url);
-			System.out.println("연결성공!");
+//			System.out.println("연결성공!");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
