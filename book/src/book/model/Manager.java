@@ -2,36 +2,37 @@ package book.model;
 
 public class Manager {
 	
-	private String manager_id;
-	private String manager_pass;
+	private String managerId;
+	private String managerPass;
 	
 	public Manager() {}
-	
-	
-	public Manager(String manager_id, String manager_pass) {
+
+	public Manager(String managerId, String managerPass) {
 		super();
-		this.manager_id = manager_id;
-		this.manager_pass = manager_pass;
+		this.managerId = managerId;
+		this.managerPass = managerPass;
 	}
 
+	public String getManagerId() {
+		return managerId;
+	}
 
-	public String getManager_id() {
-		return manager_id;
+	public void setManagerId(String managerId) {
+		this.managerId = managerId;
 	}
-	public void setManager_id(String manager_id) {
-		this.manager_id = manager_id;
+
+	public String getManagerPass() {
+		return managerPass;
 	}
-	public String getManager_pass() {
-		return manager_pass;
+
+	public void setManagerPass(String managerPass) {
+		this.managerPass = managerPass;
 	}
-	public void setManager_pass(String manager_pass) {
-		this.manager_pass = manager_pass;
-	}
-	
-	
+
 	@Override
 	public String toString() {
-		return "Manager [manager_id=" + manager_id + ", manager_pass=" + manager_pass + "]";
+		return "Manager [관리자아이디=" + managerId + ", 관리자비밀번호=" + managerPass + "]";
 	}
 	
+
 }

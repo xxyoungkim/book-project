@@ -49,19 +49,21 @@ public class BookApp {
 	}
 
 	public void userTitle() {
-		System.out.println("1.전체조회");
-		System.out.println("2.ISBN조회");
-		System.out.println("3.제목조회");
-		System.out.println("4.작가조회");
-		System.out.println("5.출판사조회");
-		System.out.println("6.분류조회");
-		System.out.println("7.책대여");
-		System.out.println("8.책반납");
-		System.out.println("9.대여가능한지조회");
-		System.out.println("---------");
-		System.out.println("10.회원정보수정");
-		System.out.println("11.회원탈퇴");
-		System.out.println("0.종료");
+		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━┓");
+		System.out.println("1.전체 도서 조회");
+		System.out.println("2.ISBN로 조회");
+		System.out.println("3.책 제목으로 조회");
+		System.out.println("4.작가로 조회");
+		System.out.println("5.출판사로 조회");
+		System.out.println("	6.분류조회");
+		System.out.println("	7.책대여");
+		System.out.println("	8.책반납");
+		System.out.println("	9.대여가능한지조회");
+		System.out.println("	---------");
+		System.out.println("	10.회원정보수정");
+		System.out.println("	11.회원탈퇴");
+		System.out.println("	0.종료");
+		System.out.println("┗━━━━━━━━━━━━━━━━━━━━━┛");
 
 	}
 
@@ -298,10 +300,10 @@ public class BookApp {
 			// id
 			System.out.print(uList[0]);
 			input[0] = scanner.nextLine();
-			char[] user_id = input[0].toCharArray();
-			for (int i = 0; i < user_id.length; i++) {
-				char temp_id = user_id[i];
-				if (Character.isLetter(temp_id) || Character.isDigit(temp_id)) {
+			char[] userId = input[0].toCharArray();
+			for (int i = 0; i < userId.length; i++) {
+				char tempId = userId[i];
+				if (Character.isLetter(tempId) || Character.isDigit(tempId)) {
 					result[0] = true;
 				} else {
 					result[0] = false;
@@ -313,10 +315,10 @@ public class BookApp {
 			System.out.print(uList[1]);
 			input[1] = scanner.nextLine();
 			if (input[1].length() > 5) { // && Character.isLetter(input[1].charAt(0))) {
-				char[] user_pass = input[1].toCharArray();
-				for (int i = 0; i < user_pass.length; i++) {
-					char temp_pass = user_pass[i];
-					if (Character.isLetter(temp_pass) || Character.isDigit(temp_pass)) {
+				char[] userPass = input[1].toCharArray();
+				for (int i = 0; i < userPass.length; i++) {
+					char tempPass = userPass[i];
+					if (Character.isLetter(tempPass) || Character.isDigit(tempPass)) {
 						result[1] = true;
 					} else {
 						result[1] = false;
@@ -328,10 +330,10 @@ public class BookApp {
 			// name
 			System.out.print(uList[2]);
 			input[2] = scanner.nextLine();
-			char[] user_name = input[2].toCharArray();
-			for (int i = 0; i < user_name.length; i++) {
-				char temp_name = user_name[i];
-				if (Character.isLetter(temp_name)) {
+			char[] userName = input[2].toCharArray();
+			for (int i = 0; i < userName.length; i++) {
+				char tempName = userName[i];
+				if (Character.isLetter(tempName)) {
 					result[2] = true;
 				} else {
 					result[2] = false;
@@ -342,12 +344,12 @@ public class BookApp {
 			// birth
 			System.out.print(uList[3]);
 			input[3] = scanner.nextLine();
-			char[] user_birth = input[3].toCharArray();
-			if (user_birth.length == 6) {
+			char[] userBirth = input[3].toCharArray();
+			if (userBirth.length == 6) {
 				result[3] = true;
 			} // 길이가 6이면 true, 숫자가 아니면 false
-			for (int i = 0; i < user_birth.length; i++) {
-				if (!(Character.isDigit(user_birth[i]))) {
+			for (int i = 0; i < userBirth.length; i++) {
+				if (!(Character.isDigit(userBirth[i]))) {
 					result[3] = false;
 					break;
 				}
@@ -356,12 +358,12 @@ public class BookApp {
 			// phone
 			System.out.print(uList[4]);
 			input[4] = scanner.nextLine();
-			char[] user_phone = input[4].toCharArray();
-			if (user_phone.length == 11 || user_phone.length == 13) {
+			char[] userPhone = input[4].toCharArray();
+			if (userPhone.length == 11 || userPhone.length == 13) {
 				result[4] = true;
 			}
-			for (int i = 0; i < user_phone.length; i++) {
-				if ( (Character.isLetter(user_phone[i])) ) {
+			for (int i = 0; i < userPhone.length; i++) {
+				if ( (Character.isLetter(userPhone[i])) ) {
 					result[4] = false;
 					break;
 				}
@@ -400,24 +402,24 @@ public class BookApp {
 	
 	// 회원정보 수정
 	public void updateUser() {
-		String user_id = ScannerUtil.readStr("id 입력");
-		User user = bookList.findOneUser(user_id);
-		if(! user_id.equals(connectingID)) {	
+		String userId = ScannerUtil.readStr("id 입력");
+		User user = bookList.findOneUser(userId);
+		if(! userId.equals(connectingID)) {	
 			System.out.println("자신의 회원정보만 수정할 수 있습니다.");
 			user();
 		}
 
 		// 비밀번호, 휴대전화번호 수정 가능
 		System.out.print("수정할 비밀번호> ");
-		String user_pass = scanner.nextLine();
-		if (!user_pass.equals("")) {
-			user.setUser_pass(user_pass);
+		String userPass = scanner.nextLine();
+		if (!userPass.equals("")) {
+			user.setUserPass(userPass);
 		}
 
 		System.out.print("수정할 연락처> ");
-		String user_phone = scanner.nextLine();
-		if (!user_phone.equals("")) {
-			user.setUser_phone(user_phone);
+		String userPhone = scanner.nextLine();
+		if (!userPhone.equals("")) {
+			user.setUserPhone(userPhone);
 		}
 		
 		bookList.updateUser(user);
@@ -426,15 +428,15 @@ public class BookApp {
 
 	// 회원탈퇴
 	public void deleteUser() {
-		String user_pass = ScannerUtil.readStr("비밀번호 입력");
-		User user = bookList.findOneUser(user_pass);
-		if(! user_pass.equals(connectingPass)) {	
+		String userPass = ScannerUtil.readStr("비밀번호 입력");
+		User user = bookList.findOneUser(userPass);
+		if(! userPass.equals(connectingPass)) {	
 			System.out.println("자신만 탈퇴할 수 있습니다.");
 			user();
 		}
 //		System.out.print("비밀번호를 입력하세요> ");
 //		String user_pass = scanner.nextLine();
-		if (user_pass != null) {
+		if (userPass != null) {
 			System.out.print("정말로 탈퇴하시겠습니까?(y/n) ");
 			String str = scanner.nextLine();
 			if (str.equals("y") || str.equals("Y")) {
@@ -448,11 +450,11 @@ public class BookApp {
 	//로그인체크
 	public boolean idPassCheck() {
 		boolean result = false;
-		String user_id = ScannerUtil.readStr("아이디 입력");
-		String user_pass = ScannerUtil.readStr("비밀번호 입력");
-		boolean idPassCheck = bookList.logIn(user_id, user_pass);
-		connectingID = user_id;
-		connectingPass = user_pass;
+		String userId = ScannerUtil.readStr("아이디 입력");
+		String userPass = ScannerUtil.readStr("비밀번호 입력");
+		boolean idPassCheck = bookList.logIn(userId, userPass);
+		connectingID = userId;
+		connectingPass = userPass;
 
 		if(idPassCheck == true) {
 			result = true;
@@ -479,9 +481,9 @@ public class BookApp {
 	//관리자로그인체크
 	public boolean managerIdPassCheck() {
 		boolean result = false;
-		String manager_id = ScannerUtil.readStr("아이디 입력");
-		String manager_pass = ScannerUtil.readStr("비밀번호 입력");
-		boolean managerIdPassCheck = bookList.managerLogIn(manager_id, manager_pass);
+		String managerId = ScannerUtil.readStr("아이디 입력");
+		String managerPass = ScannerUtil.readStr("비밀번호 입력");
+		boolean managerIdPassCheck = bookList.managerLogIn(managerId, managerPass);
 
 		if(managerIdPassCheck == true) {
 			result = true;

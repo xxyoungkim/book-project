@@ -316,15 +316,15 @@ public class BookDAO implements BookAccess {
 	
 	
 	//회원가입
-	public void signUp(String user_id, String user_pass, String user_name, String user_birth, String user_phone) {
+	public void signUp(String userId, String userPass, String userName, String userBirth, String userPhone) {
 		connect();
 		try {
 			psmt = conn.prepareStatement("insert into user values(?, ?, ?, ?, ?)");
-			psmt.setString(1, user_id);
-			psmt.setString(2, user_pass);
-			psmt.setString(3, user_name);
-			psmt.setString(4, user_birth);
-			psmt.setString(5, user_phone);
+			psmt.setString(1, userId);
+			psmt.setString(2, userPass);
+			psmt.setString(3, userName);
+			psmt.setString(4, userBirth);
+			psmt.setString(5, userPhone);
 			int r = psmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -336,11 +336,11 @@ public class BookDAO implements BookAccess {
 	
 	//로그인: idEqual && passEqual == 로그인 성공
 	@Override
-	public boolean logIn(String user_id, String user_pass) {
+	public boolean logIn(String userId, String userPass) {
 		boolean result;
 		
-		if(idEqual(user_id)) {
-			if(passEqual(user_pass)) {
+		if(idEqual(userId)) {
+			if(passEqual(userPass)) {
 				System.out.println("로그인 성공!");
 				result = true;
 			}
@@ -359,13 +359,13 @@ public class BookDAO implements BookAccess {
 	
 	
 	//id확인 메소드
-	public boolean idEqual(String user_id) {
+	public boolean idEqual(String userId) {
 		connect();
 		boolean result = false;
 		try {
 			//입력한 u_id와 동일한 u_id가 있으면 조회
 			psmt = conn.prepareStatement("select user_id from user where user_id=?");
-			psmt.setString(1, user_id);
+			psmt.setString(1, userId);
 			rs = psmt.executeQuery();
 			
 			if(rs.next()) {
@@ -383,12 +383,12 @@ public class BookDAO implements BookAccess {
 	
 	
 	//password확인 메소드
-	public boolean passEqual(String user_pass) {
+	public boolean passEqual(String userPass) {
 		connect();
 		boolean result = false;
 		try {
 			psmt = conn.prepareStatement("select user_pass from user where user_pass=?");
-			psmt.setString(1, user_pass);
+			psmt.setString(1, userPass);
 			rs = psmt.executeQuery();
 			
 			if(rs.next()) {
@@ -404,11 +404,11 @@ public class BookDAO implements BookAccess {
 	
 		
 	//관리자로그인: idEqual && passEqual == 로그인 성공
-	public boolean managerLogIn(String manager_id, String manager_pass) {
+	public boolean managerLogIn(String managerId, String managerPass) {
 		boolean result;
 		
-		if(managerIdEqual(manager_id)) {
-			if(managerPassEqual(manager_pass)) {
+		if(managerIdEqual(managerId)) {
+			if(managerPassEqual(managerPass)) {
 				System.out.println("로그인 성공!");
 				result = true;
 			}
@@ -427,13 +427,13 @@ public class BookDAO implements BookAccess {
 	
 	
 	//관리자id확인 메소드
-	public boolean managerIdEqual(String manager_id) {
+	public boolean managerIdEqual(String managerId) {
 		connect();
 		boolean result = false;
 		try {
 			//입력한 u_id와 동일한 u_id가 있으면 조회
 			psmt = conn.prepareStatement("select manager_id from manager where manager_id=?");
-			psmt.setString(1, manager_id);
+			psmt.setString(1, managerId);
 			rs = psmt.executeQuery();
 			
 			if(rs.next()) {
@@ -451,12 +451,12 @@ public class BookDAO implements BookAccess {
 	
 	
 	//관리자password확인 메소드
-	public boolean managerPassEqual(String manager_pass) {
+	public boolean managerPassEqual(String managerPass) {
 		connect();
 		boolean result = false;
 		try {
 			psmt = conn.prepareStatement("select manager_pass from manager where manager_pass=?");
-			psmt.setString(1, manager_pass);
+			psmt.setString(1, managerPass);
 			rs = psmt.executeQuery();
 			
 			if(rs.next()) {
@@ -484,9 +484,9 @@ public class BookDAO implements BookAccess {
 		connect();
 		try {
 			psmt = conn.prepareStatement("update user set user_pass=?, user_phone=? where user_id=?");
-			psmt.setString(1, user.getUser_pass());
-			psmt.setString(2, user.getUser_phone());
-			psmt.setString(3, user.getUser_id());
+			psmt.setString(1, user.getUserPass());
+			psmt.setString(2, user.getUserPhone());
+			psmt.setString(3, user.getUserId());
 			int r = psmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -502,7 +502,7 @@ public class BookDAO implements BookAccess {
 		connect();
 		try {
 			psmt = conn.prepareStatement("delete from user where user_pass=?");
-			psmt.setString(1, user.getUser_pass());
+			psmt.setString(1, user.getUserPass());
 			int r = psmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -515,19 +515,19 @@ public class BookDAO implements BookAccess {
 
 
 	//회원정보 단건조회
-	public User findOneUser(String user_id) {
+	public User findOneUser(String userId) {
 		connect();
 		try {
 			psmt = conn.prepareStatement("select * from user where user_id=?");
-			psmt.setString(1, user_id);
+			psmt.setString(1, userId);
 			rs = psmt.executeQuery();
 			if(rs.next()) {
 				user = new User();
-				user.setUser_id(rs.getString("user_id"));
-				user.setUser_pass(rs.getString("user_pass"));
-				user.setUser_name(rs.getString("user_name"));
-				user.setUser_birth(rs.getString("user_birth"));
-				user.setUser_phone(rs.getString("user_phone"));
+				user.setUserId(rs.getString("user_id"));
+				user.setUserPass(rs.getString("user_pass"));
+				user.setUserName(rs.getString("user_name"));
+				user.setUserBirth(rs.getString("user_birth"));
+				user.setUserPhone(rs.getString("user_phone"));
 			}
 			
 		} catch (SQLException e) {
@@ -548,11 +548,11 @@ public class BookDAO implements BookAccess {
 			
 			while(rs.next()) {
 				User user = new User();
-				user.setUser_id(rs.getString("user_id"));
-				user.setUser_pass(rs.getString("user_pass"));
-				user.setUser_name(rs.getString("user_name"));
-				user.setUser_birth(rs.getString("user_birth"));
-				user.setUser_phone(rs.getString("user_phone"));
+				user.setUserId(rs.getString("user_id"));
+				user.setUserPass(rs.getString("user_pass"));
+				user.setUserName(rs.getString("user_name"));
+				user.setUserBirth(rs.getString("user_birth"));
+				user.setUserPhone(rs.getString("user_phone"));
 				
 				userList.add(user);
 			}

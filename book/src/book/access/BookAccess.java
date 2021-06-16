@@ -45,12 +45,12 @@ public interface BookAccess {
 	
 	
 	//회원가입
-	public void signUp(String user_id, String user_pass, String user_name, String user_birth, String user_phone);
+	public void signUp(String userId, String userPass, String userName, String userBirth, String userPhone);
 	
 	//로그인: idEqual && passEqual == 로그인 성공
-	public boolean logIn(String user_id, String user_pass);
+	public boolean logIn(String userId, String userPass);
 	
-	public boolean managerLogIn(String manager_id, String manager_pass);
+	public boolean managerLogIn(String managerId, String managerPass);
 	
 	
 
@@ -65,7 +65,7 @@ public interface BookAccess {
 	public void deleteUser(User user);
 	
 	//회원정보 단건조회
-	public User findOneUser(String user_id);
+	public User findOneUser(String userId);
 
 	
 	//회원 전체조회

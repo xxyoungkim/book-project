@@ -75,8 +75,8 @@ public class Book {
 	
 	@Override
 	public String toString() {
-		return "Book [isbn=" + isbn + ", title=" + title + ", author=" + author + ", publisher=" + publisher
-				+ ", subject=" + subject + ", translator=" + translator + "]";
+		return "[ISBN:" + isbn + ", 제목:" + title + ", 작가:" + author + ", 출판사:" + publisher
+				+ ", 분류:" + subject + ", 옮긴이:" + translator + "]";
 	}
 	
 }

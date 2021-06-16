@@ -2,65 +2,81 @@ package book.model;
 
 public class User {
 	
-	private String user_id;
-	private String user_pass;
-	private String user_name;
-	private String user_birth;
-	private String user_phone;
+	private String userId;
+	private String userPass;
+	private String userName;
+	private String userBirth;
+	private String userPhone;
 	
 	
 	public User() {}
-	
-	
 
-	public User(String user_id, String user_pass, String user_name, String user_birth, String user_phone) {
+
+	public User(String userId, String userPass, String userName, String userBirth, String userPhone) {
 		super();
-		this.user_id = user_id;
-		this.user_pass = user_pass;
-		this.user_name = user_name;
-		this.user_birth = user_birth;
-		this.user_phone = user_phone;
-		
+		this.userId = userId;
+		this.userPass = userPass;
+		this.userName = userName;
+		this.userBirth = userBirth;
+		this.userPhone = userPhone;
 	}
 
 
+	public String getUserId() {
+		return userId;
+	}
 
-	public String getUser_id() {
-		return user_id;
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+
+
+	public String getUserPass() {
+		return userPass;
 	}
-	public String getUser_pass() {
-		return user_pass;
+
+
+	public void setUserPass(String userPass) {
+		this.userPass = userPass;
 	}
-	public void setUser_pass(String user_pass) {
-		this.user_pass = user_pass;
+
+
+	public String getUserName() {
+		return userName;
 	}
-	public String getUser_name() {
-		return user_name;
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
+
+
+	public String getUserBirth() {
+		return userBirth;
 	}
-	public String getUser_birth() {
-		return user_birth;
+
+
+	public void setUserBirth(String userBirth) {
+		this.userBirth = userBirth;
 	}
-	public void setUser_birth(String user_birth) {
-		this.user_birth = user_birth;
+
+
+	public String getUserPhone() {
+		return userPhone;
 	}
-	public String getUser_phone() {
-		return user_phone;
+
+
+	public void setUserPhone(String userPhone) {
+		this.userPhone = userPhone;
 	}
-	public void setUser_phone(String user_phone) {
-		this.user_phone = user_phone;
-	}
-	
-	
+
+
 	@Override
 	public String toString() {
-		return "User [user_id=" + user_id + ", user_pass=" + user_pass + ", user_name=" + user_name + ", user_birth="
-				+ user_birth + ", user_phone=" + user_phone + "]";
+		return "User [아이디=" + userId + ", 비밀번호=" + userPass + ", 이름=" + userName + ", 생년월일="
+				+ userBirth + ", 연락처=" + userPhone + "]";
 	}
 	
+
 }
