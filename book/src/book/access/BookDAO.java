@@ -286,6 +286,34 @@ public class BookDAO implements BookAccess {
 	}
 	
 	
+	@Override
+	public ArrayList<Book> unableRental() {
+		connect();
+		try {
+			psmt = conn.prepareStatement("select * from book where count=0");
+			rs = psmt.executeQuery();
+			bookList = new ArrayList<Book>();
+			
+			while(rs.next()) {
+				book = new Book();
+				book.setIsbn(rs.getString("isbn"));
+				book.setTitle(rs.getString("title"));
+				book.setAuthor(rs.getString("author"));
+				book.setPublisher(rs.getString("publisher"));
+				book.setSubject(rs.getString("subject"));
+				book.setTranslator(rs.getString("translator"));
+				
+				bookList.add(book);
+			}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {close();}
+		return bookList;
+	}
+
+	
+	
 	
 	//회원가입
 	public void signUp(String user_id, String user_pass, String user_name, String user_birth, String user_phone) {
@@ -375,13 +403,78 @@ public class BookDAO implements BookAccess {
 	}
 	
 		
+	//관리자로그인: idEqual && passEqual == 로그인 성공
+	public boolean managerLogIn(String manager_id, String manager_pass) {
+		boolean result;
+		
+		if(managerIdEqual(manager_id)) {
+			if(managerPassEqual(manager_pass)) {
+				System.out.println("로그인 성공!");
+				result = true;
+			}
+			else {
+				System.out.println("비밀번호가 틀렸습니다.");
+				result = false;
+			}
+		}
+		else {
+			System.out.println("존재하지 않는 아이디입니다.");
+			result = false;
+		}
+		
+		return result;
+	}
+	
+	
+	//관리자id확인 메소드
+	public boolean managerIdEqual(String manager_id) {
+		connect();
+		boolean result = false;
+		try {
+			//입력한 u_id와 동일한 u_id가 있으면 조회
+			psmt = conn.prepareStatement("select manager_id from manager where manager_id=?");
+			psmt.setString(1, manager_id);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				result = true;
+				return result;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {close();}
+		
+		return result;
+	}
+	
+	
+	
+	//관리자password확인 메소드
+	public boolean managerPassEqual(String manager_pass) {
+		connect();
+		boolean result = false;
+		try {
+			psmt = conn.prepareStatement("select manager_pass from manager where manager_pass=?");
+			psmt.setString(1, manager_pass);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				result = true;
+				return result;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {close();}
+		
+		return result;
+	}
 	
 	
 	//로그아웃
 	@Override
 	public void logOut() {
 		connect();
-		
 	}
 	
 	
@@ -408,9 +501,8 @@ public class BookDAO implements BookAccess {
 	public void deleteUser(User user) {
 		connect();
 		try {
-			psmt = conn.prepareStatement("delete from user where user_id=?, user_pass=?");
-			psmt.setString(1, user.getUser_id());
-			psmt.setString(2, user.getUser_pass());
+			psmt = conn.prepareStatement("delete from user where user_pass=?");
+			psmt.setString(1, user.getUser_pass());
 			int r = psmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -576,6 +668,8 @@ public class BookDAO implements BookAccess {
 			}
 		}// end of if
 	} //end of close
+
+
 
 
 

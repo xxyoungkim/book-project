@@ -40,12 +40,17 @@ public interface BookAccess {
 	//대출가능한책 목록
 	public ArrayList<Book> ableRental();
 	
+	//대출중인책 목록
+	public ArrayList<Book> unableRental();
+	
 	
 	//회원가입
 	public void signUp(String user_id, String user_pass, String user_name, String user_birth, String user_phone);
 	
 	//로그인: idEqual && passEqual == 로그인 성공
 	public boolean logIn(String user_id, String user_pass);
+	
+	public boolean managerLogIn(String manager_id, String manager_pass);
 	
 	
 
