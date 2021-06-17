@@ -1,7 +1,7 @@
 package book.view;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+//import java.util.Iterator;
 import java.util.Scanner;
 
 import book.AppMain;
@@ -115,7 +115,7 @@ public class BookApp {
 			infonum = ScannerUtil.readInt("선택");
 
 			switch (infonum) {
-			case 1: findOneUser(); break;
+			case 1: myInfo(); break;
 			case 2: updateUser(); break;
 			case 3: deleteUser(); break;
 			case 0: user(); break;
@@ -124,6 +124,13 @@ public class BookApp {
 		} while (infonum != 0);
 	}
 
+	
+	//나의 정보 조회
+	public void myInfo() {		
+		User user = bookList.findOneUser(connectingID);
+		System.out.println(user);
+	}
+	
 	public void userInfoTitle() {
 		System.out.println("┏━━━━━━━━━━━━━━━━━━━━━┓");
 		System.out.println("┃                     ┃");
@@ -294,6 +301,10 @@ public class BookApp {
 			if (isbn.length() == 13) {
 				count++;
 			}
+			else if (isbn.length() == 0) {
+				user();
+				//아무것도 입력하지 않으면 다시 user화면으로 돌아간다
+			}
 			else {
 				System.out.println("다시 입력해주세요.");
 				continue;
@@ -347,11 +358,11 @@ public class BookApp {
 				continue;
 			}
 
-			if (count < 3) {
+			while(!list.isEmpty()) {
 				System.out.print("추가로 반납하시겠습니까?(y/n) ");
 				String str = scanner.nextLine();
 				if (str.equals("y") || str.equals("Y")) {	
-					continue;													
+					returnBook();													
 				} else if (str.equals("n") || str.equals("N")) {
 					user();
 					break;
@@ -393,7 +404,7 @@ public class BookApp {
 	
 	
 	//회원가입
-	static String[] uList = { "아이디: ", "패스워드(문자+숫자): ", "이름: ", "생년월일(6자리): ", "연락처: " };
+	static String[] uList = { "아이디(5자리 이상): ", "패스워드(문자+숫자): ", "이름: ", "생년월일(6자리): ", "연락처: " };
 
 	public void signUp() {
 		Scanner scanner = new Scanner(System.in);
@@ -559,7 +570,7 @@ public class BookApp {
 		User user = bookList.findOneUser(userPass);
 		if(! userPass.equals(connectingPass)) {	
 			System.out.println("비밀번호 확인이 실패하였습니다.");
-			user();
+			userInfo();
 		}
 //		System.out.print("비밀번호를 입력하세요> ");
 //		String user_pass = scanner.nextLine();
